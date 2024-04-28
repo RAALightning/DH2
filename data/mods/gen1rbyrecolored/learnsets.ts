@@ -1,20 +1,20 @@
 	venusaur: {
 		learnset: {
 			inherit: true,
-			stunspore: ["9L1"],
+			stunspore: ["1L1"],
 		},
 	},
 	gyarados: {
 		learnset: {
 			inherit: true,
-			razorwind: ["9L1"],
+			razorwind: ["1L1"],
 		},
 	},
 	arcanine: {
 		learnset: {
 			inherit: true,
-			thunderbolt: ["9L1"],
-			thunder: ["9L1"],
-			earthquake: ["9L1"],
+			thunderbolt: ["1L1"],
+			thunder: ["1L1"],
+			earthquake: ["1L1"],
 		},
 	},
