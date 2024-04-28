@@ -10,5 +10,10 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData("Learnsets", "arcanine").learnset.thunderbolt = ["1L1"];
 		this.modData("Learnsets", "arcanine").learnset.thunder = ["1L1"];
 		this.modData("Learnsets", "arcanine").learnset.earthquake = ["1L1"];
+		// Golem
+		this.modData("Learnsets", "golem").learnset.agility = ["1L1"];
+		this.modData("Learnsets", "golem").learnset.avalanche = ["1L1"];
+		// Jolteon
+		this.modData("Learnsets", "jolteon").learnset.jumpkick = ["1L1"];
 	 },
 }
