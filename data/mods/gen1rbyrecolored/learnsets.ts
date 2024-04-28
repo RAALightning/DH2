@@ -1,3 +1,4 @@
+export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	venusaur: {
 		learnset: {
 			inherit: true,
@@ -18,3 +19,4 @@
 			earthquake: ["1L1"],
 		},
 	},
+}
