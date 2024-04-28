@@ -18,4 +18,24 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		types: ["Fire"],
 		baseStats: {hp: 95, atk: 125, def: 79, spa: 100, spd: 100, spe: 81},
 	},
+		jolteon: {
+		inherit: true,
+		types: ["Electric"],
+		baseStats: {hp: 65, atk: 95, def: 60, spa: 110, spd: 110, spe: 130},
+	},
+		flareon: {
+		inherit: true,
+		types: ["Fire"],
+		baseStats: {hp: 95, atk: 130, def: 60, spa: 110, spd: 110, spe: 65},
+	},
+		vaporeon: {
+		inherit: true,
+		types: ["Water"],
+		baseStats: {hp: 130, atk: 65, def: 60, spa: 110, spd: 110, spe: 95},
+	},
+		golem: {
+		inherit: true,
+		types: ["Rock", "Ground"],
+		baseStats: {hp: 80, atk: 110, def: 140, spa: 65, spd: 65, spe: 45},
+	},
 }
