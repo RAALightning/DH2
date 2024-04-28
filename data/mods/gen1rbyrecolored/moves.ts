@@ -1,6 +1,5 @@
 export const Moves: {[k: string]: ModdedMoveData} = {
 	dreameater: {
-		num: 138,
 		accuracy: 100,
 		basePower: 100,
 		category: "Physical",
@@ -12,5 +11,18 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Ghost",
+	},
+		razorwind: {
+		num: -1,
+		accuracy: 100,
+		basePower: 100,
+		category: "Physical",
+		name: "Razor Wind",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, metronome: 1},
+		secondary: null,
+		target: "normal",
+		type: "Flying",
 	},
 }
