@@ -64,6 +64,25 @@ export const TypeChart: {[k: string]: ModdedTypeData | null} = {
 			Water: 0,
 		},
 	},
+	grass: {
+		damageTaken: {
+			Bug: 1,
+			Dragon: 0,
+			Electric: 2,
+			Fighting: 0,
+			Fire: 1,
+			Flying: 0,
+			Ghost: 0,
+			Grass: 2,
+			Ground: 2,
+			Ice: 1,
+			Normal: 0,
+			Poison: 1,
+			Psychic: 0,
+			Rock: 0,
+			Water: 2,
+		},
+	},
 	ice: {
 		damageTaken: {
 			Bug: 0,
