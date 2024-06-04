@@ -132,7 +132,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		flags: {heal: 1},
 		onPrepareHit(target, source, move) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "hypervoice", target);
+			this.add('-anim', source, "Hyper Voice", target);
 		},
 		heal: [1, 2],
 		secondary: null,
