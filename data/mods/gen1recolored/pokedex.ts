@@ -1,27 +1,22 @@
 export const Pokedex: {[k: string]: ModdedSpeciesData} = {
-	weezing: {
-		inherit: true,
-		baseStats: {hp: 105, atk: 120, def: 140, spa: 100, spd: 100, spe: 35},
+	kingler: {
+		types: ["Bug", "Water"],
 	},
-	muk: {
-		inherit: true,
-		baseStats: {hp: 130, atk: 110, def: 105, spa: 125, spd: 125, spe: 30},
+	magneton: {
+		types: ["Steel", "Electric"],
 	},
 	arcanine: {
 		inherit: true,
-		baseStats: {hp: 90, atk: 125, def: 85, spa: 100, spd: 100, spe: 81},
+		baseStats: {hp: 100, atk: 140, def: 80, spa: 85, spd: 85, spe: 81},
+		types: ["Fire", "Electric"],
 	},
 	alakazam: {
 		inherit: true,
-		baseStats: {hp: 55, atk: 50, def: 45, spa: 145, spd: 145, spe: 120},
-	},
-	seadra: {
-		inherit: true,
-		baseStats: {hp: 55, atk: 65, def: 95, spa: 125, spd: 125, spe: 85},
+		baseStats: {hp: 55, atk: 50, def: 45, spa: 140, spd: 140, spe: 120},
 	},
 	ninetales: {
 		inherit: true,
-		types: ["Fire", "Ghost"],
+		types: ["Fire", "Psychic"],
 	},
 	vileplume: {
 		inherit: true,
@@ -29,11 +24,17 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	},
 	venusaur: {
 		inherit: true,
+		baseStats: {hp: 95, atk: 100, def: 80, spa: 100, spd: 100, spe: 81},
 		types: ["Grass"],
+	},
+	lapras: {
+		inherit: true,
+		baseStats: {hp: 150, atk: 85, def: 80, spa: 85, spd: 95, spe: 60},
+		types: ["Ice"],
 	},
 	gyarados: {
 		inherit: true,
-		baseStats: {hp: 95, atk: 130, def: 79, spa: 105, spd: 105, spe: 81},
+		baseStats: {hp: 100, atk: 125, def: 79, spa: 100, spd: 100, spe: 81},
 	},
 	aerodactyl: {
 		inherit: true,
@@ -41,14 +42,27 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	},
 	onix: {
 		inherit: true,
-		baseStats: {hp: 140, atk: 85, def: 110, spa: 85, spd: 85, spe: 70},
+		baseStats: {hp: 200, atk: 70, def: 110, spa: 85, spd: 85, spe: 70},
+		types: ["Rock"],
 	},
 	raichu: {
 		inherit: true,
-		baseStats: {hp: 60, atk: 100, def: 55, spa: 100, spd: 100, spe: 110},
+		baseStats: {hp: 70, atk: 100, def: 65, spa: 100, spd: 100, spe: 110},
 	},
+	jolteon: {
+		inherit: true,
+		baseStats: {hp: 65, atk: 95, def: 60, spa: 110, spd: 95, spe: 130},
+	},
+	flareon: {
+		inherit: true,
+		baseStats: {hp: 95, atk: 130, def: 60, spa: 95, spd: 110, spe: 65},
+		},
+	vaporeon: {
+		inherit: true,
+		baseStats: {hp: 130, atk: 65, def: 60, spa: 110, spd: 95, spe: 95},
+		},
 	golem: {
 		inherit: true,
-		baseStats: {hp: 85, atk: 120, def: 140, spa: 65, spd: 65, spe: 45},
+		baseStats: {hp: 90, atk: 115, def: 120, spa: 65, spd: 65, spe: 55},
 	},
 };

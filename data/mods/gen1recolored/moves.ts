@@ -1,213 +1,325 @@
 export const Moves: {[k: string]: ModdedMoveData} = {
+	aurorabeam: {
+		inherit: true,
+		basePower: 100,
+	},
+	bind: {
+		inherit: true,
+		basePower: 20,
+		type: "Rock",
+	},
 	dreameater: {
-		num: 138,
+		inherit: true,
 		accuracy: 100,
 		basePower: 100,
 		category: "Physical",
-		shortDesc: "User recovers 50% of the damage dealt.",
-    	viable: true,
+		desc: "User gains 1/2 HP inflicted.",
+		shortDesc:  "User gains 1/2 HP inflicted.",
 		name: "Dream Eater",
-		pp: 5,
+		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1, heal: 1, metronome: 1},
+		flags: {heal: 1},
 		drain: [1, 2],
 		secondary: null,
 		target: "normal",
 		type: "Ghost",
-		contestType: "Clever",
 	},
-	pinmissile: {
-		num: 42,
+	fireblast: {
+		inherit: true,
 		accuracy: 90,
-		basePower: 37,
+	},
+	thunder: {
+		inherit: true,
+		accuracy: 85,
+	},
+	flamethrower: {
+		inherit: true,
+		basePower: 100,
+	},
+	hydropump: {
+		inherit: true,
+		accuracy: 90,
+	},
+	glare: {
+		inherit: true,
+		accuracy: 85,
+		basePower: 0,
+		category: "Status",
+		name: "Glare",
+		pp: 30,
+		priority: 0,
+		flags: {protect: 1, reflectable: 1, mirror: 1, metronome: 1},
+		status: 'par',
+		secondary: null,
+		target: "normal",
+		type: "Normal",
+	},
+	rockslide: {
+		inherit: true,
+		basePower: 85,
+	},
+	hurricane: {
+		inherit: true,
+		gen: 1,
+		accuracy: 90,
+		basePower: 100,
 		category: "Physical",
-		shortDesc: "High critical hit ratio.",
-		name: "Pin Missile",
+		name: "Hurricane",
+		desc: "No additional effect",
+		shortDesc:  "No additional effect",
+		pp: 10,
+		priority: 0,
+		secondary: null,
+		target: "normal",
+		type: "Flying",
+	},
+	superkinesis: {
+		accuracy: 100,
+		basePower: 0,
+		category: "Status",
+		name: "Super Kinesis",
+		desc: "Lowers the target's attack by 2.",
+		shortDesc:  "Lowers the target's attack by 2",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1, metronome: 1},
+		flags: {protect: 1, reflectable: 1, mirror: 1, metronome: 1},
+		onTryHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Kinesis", target);
+		},
+		boosts: {
+			atk: -2,
+		},
+		secondary: null,
+		target: "normal",
+		type: "Psychic",
+	},
+	rollout: {
+		inherit: true,
+		gen: 1,
+		accuracy: 100,
+		basePower: 100,
+		name: "Roll Out",
+		category: "Physical",
+		desc: "No additional effect",
+		shortDesc:  "No additional effect",
+		pp: 10,
+		priority: 0,
+		secondary: null,
+		target: "normal",
+		type: "Rock",
+	},
+	pinmissile: {
+		inherit: true,
+		accuracy: 90,
+		basePower: 30,
+		category: "Physical",
+		name: "Pin Missile",
+		desc: "High critical hit ratio",
+		shortDesc:  "High critical hit ratio",
+		pp: 15,
+		priority: 0,
 		critRatio: 2,
 		secondary: null,
 		target: "normal",
 		type: "Bug",
-		zMove: {basePower: 140},
-		maxMove: {basePower: 130},
-		contestType: "Cool",
-	},
-	razorwind: {
-		num: 13,
-		accuracy: 90,
-		basePower: 75,
-		category: "Physical",
-		shortDesc: "No additional effect.",
-		isNonstandard: null,
-		name: "Razor Wind",
-		pp: 15,
-		priority: 0,
-		flags: {protect: 1, mirror: 1, metronome: 1},
-		secondary: null,
-		target: "allAdjacentFoes",
-		type: "Flying",
-		contestType: "Cool",
-	},
-	bind: {
-		inherit: true,
-		accuracy: 75,
-		basePower: 35,
-		pp: 35,
-		ignoreImmunity: true,
-		volatileStatus: 'partiallytrapped',
-		self: {
-			volatileStatus: 'partialtrappinglock',
-		},
-		onHit(target, source) {
-			if (target.volatiles['partiallytrapped']) {
-				if (source.volatiles['partialtrappinglock'] && source.volatiles['partialtrappinglock'].duration > 1) {
-					target.volatiles['partiallytrapped'].duration = 2;
-				}
-			}
-		},
-		type: "Rock",
 	},
 	petaldance: {
-		num: 80,
+		inherit: true,
 		accuracy: 100,
-		basePower: 80,
+		basePower: 100,
 		category: "Special",
-		shortDesc: "No additional effect.",
 		name: "Petal Dance",
-		pp: 14,
+		desc: "No additional effect",
+		shortDesc:  "No additional effect",
+		pp: 10,
 		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1, dance: 1, metronome: 1},
 		secondary: null,
-		target: "randomNormal",
+		target: "normal",
 		type: "Grass",
-		contestType: "Beautiful",
-	},
-	primalcry: {
-		accuracy: true,
-		basePower: 0,
-		category: "Status",
-		shortDesc: "Heals the user by 50% of its max HP.",
-		name: "Primal Cry",
-		pp: 5,
-		priority: 0,
-		flags: {snatch: 1, heal: 1, metronome: 1},
-		onPrepareHit(target, source, move) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Roost", target);
-		},
-		onHit(target) {
-			if (target.hp === target.maxhp) return false;
-			// Fail when health is 255 or 511 less than max, unless it is divisible by 256
-			if (
-				target.hp === target.maxhp ||
-				((target.hp === (target.maxhp - 255) || target.hp === (target.maxhp - 511)) && target.hp % 256 !== 0)
-			) {
-				this.hint(
-					"In Gen 1, recovery moves fail if (user's maximum HP - user's current HP + 1) is divisible by 256, " +
-					"unless the current hp is also divisible by 256."
-				);
-				return false;
-			}
-			this.heal(Math.floor(target.maxhp / 2), target, target);
-		},
-		target: "self",
-		type: "Dragon",
-		zMove: {effect: 'clearnegativeboost'},
-		contestType: "Clever",
-    gen: 1,
 	},
 	willowisp: {
-		num: 261,
-		shortDesc: "Burns the foe.",
+		inherit: true,
+		gen: 1,
 		accuracy: 85,
-		basePower: 0,
 		category: "Status",
 		name: "Will-O-Wisp",
 		pp: 20,
 		priority: 0,
-		flags: {},
 		status: 'brn',
 		secondary: null,
 		target: "normal",
 		type: "Fire",
-		contestType: "Beautiful",
-		gen: 1,
 	},
-	ioncannon: {
+	quickattack: {
+		inherit: true,
 		accuracy: 100,
+		basePower: 80,
+		category: "Physical",
+		name: "Quick Attack",
+		pp: 20,
+		priority: 1,
+		secondary: null,
+		target: "normal",
+		type: "Normal",
+	},
+	megadrain: {
+		inherit: true,
+		basePower: 65,
+		drain: [1, 2],
+	},
+	eggbomb: {
+		inherit: true,
 		basePower: 110,
-		category: "Special",
-		shortDesc: "No additional effect.",
-		name: "Ion Cannon",
-		pp: 15,
+		recoil: [33,100],
+	},
+	solarbeam: {
+		inherit: true,
+		basePower: 200,
+	},
+	teleport: {
+		num: 100,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Teleport",
+		pp: 20,
 		priority: 0,
-		flags: {protect: 1, mirror: 1, metronome: 1},
-		onPrepareHit(target, source, move) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Hyper Beam", target);
+		flags: {metronome: 1, heal: 1},
+		heal: [1,5],
+		onTry(source) {
+			return !!this.canSwitch(source.side);
+		},
+		selfSwitch: true,
+		secondary: null,
+		target: "self",
+		type: "Psychic",
+		zMove: {effect: 'heal'},
+		contestType: "Cool",
+	},
+	futuresight: {
+		num: 248,
+		accuracy: 100,
+		basePower: 120,
+		category: "Special",
+		name: "Future Sight",
+		pp: 10,
+		priority: 0,
+		flags: {allyanim: 1, metronome: 1, futuremove: 1},
+		ignoreImmunity: true,
+		onTry(source, target) {
+			if (!target.side.addSlotCondition(target, 'futuremove')) return false;
+			Object.assign(target.side.slotConditions[target.position]['futuremove'], {
+				duration: 3,
+				move: 'futuresight',
+				source: source,
+				moveData: {
+					id: 'futuresight',
+					name: "Future Sight",
+					accuracy: 100,
+					basePower: 120,
+					category: "Special",
+					priority: 0,
+					flags: {allyanim: 1, metronome: 1, futuremove: 1},
+					ignoreImmunity: false,
+					effectType: 'Move',
+					type: 'Psychic',
+				},
+			});
+			this.add('-start', source, 'move: Future Sight');
+			return this.NOT_FAIL;
 		},
 		secondary: null,
 		target: "normal",
-		type: "Electric",
-		contestType: "Beautiful",
-		gen: 1,
+		type: "Psychic",
+		contestType: "Clever",
 	},
-	avalanche: {
-		num: 419,
+	haze: {
+		num: 114,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Haze",
+		pp: 30,
+		priority: 0,
+		flags: {bypasssub: 1, metronome: 1},
+		onHitField() {
+			this.add('-clearallboost');
+			for (const pokemon of this.getAllActive()) {
+				pokemon.clearBoosts();
+				pokemon.cureStatus();
+			}
+		},
+		secondary: null,
+		target: "all",
+		type: "Ice",
+		contestType: "Beautiful",
+	},
+	dragonrage: {
+		num: 82,
 		accuracy: 100,
 		basePower: 100,
 		category: "Physical",
-		shortDesc: "No additional effect.",
-		name: "Avalanche",
+		name: "Dragon Rage",
 		pp: 10,
 		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1, metronome: 1},
+		flags: {protect: 1, mirror: 1, metronome: 1},
 		secondary: null,
 		target: "normal",
-		type: "Rock",
-		contestType: "Beautiful",
-		gen: 1,
+		type: "Dragon",
+		contestType: "Cool",
 	},
-	smog: {
-		num: 123,
+	dragonbreath: {
+		num: 225,
 		accuracy: 100,
-		basePower: 75,
+		basePower: 100,
 		category: "Special",
-		shortDesc: "33% chance to burn the foe.",
-		name: "Smog",
+		name: "Dragon Breath",
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1, metronome: 1},
 		secondary: {
-			chance: 33,
-			status: 'brn',
-		},
-		target: "normal",
-		type: "Electric",
-		contestType: "Tough",
-	},
-	nastygoo: {
-		accuracy: 100,
-		basePower: 75,
-		category: "Special",
-		shortDesc: "33% chance to paralyze the foe.",
-		name: "Nasty Goo",
-		pp: 10,
-		priority: 0,
-		flags: {protect: 1, mirror: 1, metronome: 1},
-		onPrepareHit(target, source, move) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Sludge Bomb", target);
-		},
-		secondary: {
-			chance: 33,
+			chance: 30,
 			status: 'par',
 		},
 		target: "normal",
-		type: "Electric",
-		contestType: "Tough",
-		gen: 1,
+		type: "Dragon",
+		contestType: "Cool",
 	},
-};
+	guillotine: {
+		accuracy: 100,
+		basePower: 80,
+		category: "Physical",
+		name: "Guillotine",
+		pp: 5,
+		priority: 0,
+		flags: {contact: 1, protect: 1, punch: 1, failmefirst: 1, nosleeptalk: 1, noassist: 1, failcopycat: 1, failinstruct: 1},
+		priorityChargeCallback(pokemon) {
+			pokemon.addVolatile('guillotine');
+		},
+		beforeMoveCallback(pokemon) {
+			if (pokemon.volatiles['guillotine']?.lostFocus) {
+				this.add('cant', pokemon, 'Guillotine', 'Guillotine');
+				return true;
+			}
+		},
+		condition: {
+			duration: 1,
+			onStart(pokemon) {
+				this.add('-singleturn', pokemon, 'move: Guillotine');
+			},
+			onHit(pokemon, source, move) {
+				if (move.category !== 'Status') {
+					this.effectState.lostFocus = true;
+				}
+			},
+			onTryAddVolatile(status, pokemon) {
+				if (status.id === 'flinch') return null;
+			},
+		},
+		secondary: null,
+		target: "normal",
+		type: "Bug",
+		contestType: "Tough",
+	},
+}
