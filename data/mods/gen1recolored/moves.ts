@@ -9,7 +9,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Rock",
 	},
 	dreameater: {
-		inherit: true,
 		accuracy: 100,
 		basePower: 100,
 		category: "Physical",
@@ -19,6 +18,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 10,
 		priority: 0,
 		flags: {heal: 1},
+		onTryHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Dream Eater", target);
+		},
 		drain: [1, 2],
 		secondary: null,
 		target: "normal",
@@ -74,6 +77,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Flying",
 	},
 	superkinesis: {
+		gen: 1,
 		accuracy: 100,
 		basePower: 0,
 		category: "Status",
@@ -95,7 +99,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Psychic",
 	},
 	rollout: {
-		inherit: true,
 		gen: 1,
 		accuracy: 100,
 		basePower: 100,
@@ -110,7 +113,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Rock",
 	},
 	pinmissile: {
-		inherit: true,
 		accuracy: 90,
 		basePower: 30,
 		category: "Physical",
@@ -187,9 +189,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		priority: 0,
 		flags: {metronome: 1, heal: 1},
 		heal: [1,5],
-		onTry(source) {
-			return !!this.canSwitch(source.side);
-		},
 		selfSwitch: true,
 		secondary: null,
 		target: "self",
@@ -199,6 +198,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 	futuresight: {
 		num: 248,
+		gen: 1,
 		accuracy: 100,
 		basePower: 120,
 		category: "Special",
@@ -264,13 +264,17 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1, metronome: 1},
+		onEffectiveness(typeMod, target, type) {
+			if (type === 'Dragon') return 1;
+		},
 		secondary: null,
 		target: "normal",
-		type: "Dragon",
+		type: "???",
 		contestType: "Cool",
 	},
 	dragonbreath: {
 		num: 225,
+		gen: 1,
 		accuracy: 100,
 		basePower: 100,
 		category: "Special",

@@ -1,9 +1,11 @@
 export const Pokedex: {[k: string]: ModdedSpeciesData} = {
-	kingler: {
-		types: ["Bug", "Water"],
-	},
 	magneton: {
+		inherit: true,
 		types: ["Steel", "Electric"],
+	},
+	kingler: {
+		inherit: true,
+		types: ["Bug", "Water"],
 	},
 	arcanine: {
 		inherit: true,
@@ -65,4 +67,5 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		inherit: true,
 		baseStats: {hp: 90, atk: 115, def: 120, spa: 65, spd: 65, spe: 55},
 	},
+	
 };
