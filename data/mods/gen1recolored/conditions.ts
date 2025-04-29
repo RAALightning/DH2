@@ -196,7 +196,7 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 	},
 	partiallytrapped: {
 		name: 'partiallytrapped',
-		duration: 2,
+		duration: 1,
 		onBeforeMovePriority: 9,
 		onBeforeMove(pokemon) {
 			this.add('cant', pokemon, 'partiallytrapped');
@@ -206,7 +206,7 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 	partialtrappinglock: {
 		name: 'partialtrappinglock',
 		durationCallback() {
-			const duration = this.sample([2, 2, 2, 3, 3, 3, 4, 5]);
+			const duration = this.sample([2]);
 			return duration;
 		},
 		onStart(target, source, effect) {

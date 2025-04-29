@@ -3,11 +3,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		inherit: true,
 		basePower: 100,
 	},
-	bind: {
-		inherit: true,
-		basePower: 20,
-		type: "Rock",
-	},
 	dreameater: {
 		accuracy: 100,
 		basePower: 100,
@@ -60,6 +55,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	rockslide: {
 		inherit: true,
 		basePower: 85,
+		accuracy: 100,
 	},
 	hurricane: {
 		inherit: true,
@@ -100,14 +96,18 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 	rollout: {
 		gen: 1,
-		accuracy: 100,
+		accuracy: 90,
 		basePower: 100,
-		name: "Roll Out",
+		name: "Rollout",
 		category: "Physical",
 		desc: "No additional effect",
 		shortDesc:  "No additional effect",
 		pp: 10,
 		priority: 0,
+		onTryHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Rollout", target);
+		},
 		secondary: null,
 		target: "normal",
 		type: "Rock",
@@ -186,9 +186,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		category: "Status",
 		name: "Teleport",
 		pp: 20,
-		priority: 0,
+		priority: -6,
 		flags: {metronome: 1, heal: 1},
-		heal: [1,5],
+		heal: [1,3],
 		selfSwitch: true,
 		secondary: null,
 		target: "self",
@@ -200,7 +200,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		num: 248,
 		gen: 1,
 		accuracy: 100,
-		basePower: 120,
+		basePower: 150,
 		category: "Special",
 		name: "Future Sight",
 		pp: 10,
@@ -217,7 +217,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					id: 'futuresight',
 					name: "Future Sight",
 					accuracy: 100,
-					basePower: 120,
+					basePower: 150,
 					category: "Special",
 					priority: 0,
 					flags: {allyanim: 1, metronome: 1, futuremove: 1},
@@ -234,26 +234,46 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Psychic",
 		contestType: "Clever",
 	},
-	haze: {
-		num: 114,
+	healingmist: {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		name: "Haze",
-		pp: 30,
+		name: "Healing Mist",
+		pp: 10,
 		priority: 0,
-		flags: {bypasssub: 1, metronome: 1},
-		onHitField() {
-			this.add('-clearallboost');
-			for (const pokemon of this.getAllActive()) {
-				pokemon.clearBoosts();
-				pokemon.cureStatus();
-			}
+		flags: {heal: 1, bypasssub: 1, allyanim: 1},
+		onTryHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Mist", target);
+		},
+		onHit(pokemon) {
+			const success = !!this.heal(this.modify(pokemon.maxhp, 0.25));
+			return pokemon.cureStatus() || success;
 		},
 		secondary: null,
-		target: "all",
+		target: "allies",
 		type: "Ice",
-		contestType: "Beautiful",
+	},
+	outrage: {
+		gen: 1,
+		accuracy: 90,
+		basePower: 130,
+		name: "Outrage",
+		category: "Physical",
+		desc: "1/10 chance to burn",
+		shortDesc:  "1/10 chance to burn",
+		pp: 10,
+		priority: 0,
+		onTryHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Outrage", target);
+		},
+		secondary: {
+			chance: 10,
+			status: 'brn',
+		},
+		target: "normal",
+		type: "Normal",
 	},
 	dragonrage: {
 		num: 82,
@@ -325,5 +345,68 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Bug",
 		contestType: "Tough",
+	},
+	wrap: {
+		inherit: true,
+		basePower: 60,
+		pp: 10,
+		overrideDefensiveStat: 'spe',
+	},
+	bind: {
+		inherit: true,
+		basePower: 60,
+		accuracy: 85,
+		pp: 5,
+		overrideDefensiveStat: 'spe',
+		type: "Rock",
+	},
+	clamp: {
+		inherit: true,
+		basePower: 60,
+		accuracy: 85,
+		pp: 5,
+		overrideDefensiveStat: 'spe',
+	},
+	firespin: {
+		inherit: true,
+		basePower: 60,
+		accuracy: 85,
+		pp: 5,
+		overrideDefensiveStat: 'spe',
+	},
+	magnetpull: {
+		basePower: 60,
+		accuracy: 85,
+		category: "Special",
+		name: "Magnet Pull",
+		pp: 5,
+		overrideDefensiveStat: 'spe',
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		volatileStatus: 'partiallytrapped',
+		self: {
+			volatileStatus: 'partialtrappinglock',
+		},
+		onTryHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Thunder Cage", target);
+		},
+		// FIXME: onBeforeMove(pokemon, target) {target.removeVolatile('mustrecharge')}
+		onHit(target, source) {
+			/**
+			 * The duration of the partially trapped must be always renewed to 2
+			 * so target doesn't move on trapper switch out as happens in gen 1.
+			 * However, this won't happen if there's no switch and the trapper is
+			 * about to end its partial trapping.
+			 **/
+			if (target.volatiles['partiallytrapped']) {
+				if (source.volatiles['partialtrappinglock'] && source.volatiles['partialtrappinglock'].duration > 1) {
+					target.volatiles['partiallytrapped'].duration = 2;
+				}
+			}
+		},
+		secondary: null,
+		target: "normal",
+		type: "Electric",
 	},
 }

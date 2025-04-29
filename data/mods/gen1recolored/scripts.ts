@@ -23,10 +23,12 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData("Learnsets", "onix").learnset.blizzard = ["1L1"];
 		// Magneton
 		this.modData("Learnsets", "magneton").learnset.recover = ["1L1"];
+		this.modData("Learnsets", "magneton").learnset.magnetpull = ["1L1"];
 		// Gyarados
 		this.modData("Learnsets", "gyarados").learnset.hurricane = ["1L1"];
 		this.modData("Learnsets", "gyarados").learnset.dragonbreath = ["1L1"];
 		// Arcanine
+		this.modData("Learnsets", "arcanine").learnset.outrage = ["1L1"];
 		this.modData("Learnsets", "arcanine").learnset.thunderbolt = ["1L1"];
 		this.modData("Learnsets", "arcanine").learnset.earthquake = ["1L1"];
 		this.modData("Learnsets", "arcanine").learnset.thunderwave = ["1L1"];
@@ -49,7 +51,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		// Vaporeon
 		this.modData('Learnsets', 'vaporeon').learnset.growth = ["1L1"];
 		this.modData('Learnsets', 'vaporeon').learnset.megadrain = ["1L1"];
-		this.modData('Learnsets', 'vaporeon').learnset.recover = ["1L1"];
+		this.modData('Learnsets', 'vaporeon').learnset.healingmist = ["1L1"];
 		// Moltres
 		this.modData('Learnsets', 'moltres').learnset.flamethrower = ["1L1"];
 		this.modData('Learnsets', 'moltres').learnset.drillpeck = ["1L1"];

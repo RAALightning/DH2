@@ -9,7 +9,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	},
 	arcanine: {
 		inherit: true,
-		baseStats: {hp: 100, atk: 140, def: 80, spa: 85, spd: 85, spe: 81},
+		baseStats: {hp: 115, atk: 140, def: 80, spa: 84, spd: 84, spe: 81},
 		types: ["Fire", "Electric"],
 	},
 	alakazam: {
@@ -36,7 +36,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	},
 	gyarados: {
 		inherit: true,
-		baseStats: {hp: 100, atk: 125, def: 79, spa: 100, spd: 100, spe: 81},
+		baseStats: {hp: 105, atk: 130, def: 79, spa: 105, spd: 105, spe: 81},
 	},
 	aerodactyl: {
 		inherit: true,
