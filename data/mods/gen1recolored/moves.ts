@@ -384,18 +384,20 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		basePower: 100,
 		category: "Physical",
 		name: "Egg Bomb",
-		desc: "No additional effect.",
-		shortDesc: "No additional effect.",
+		desc: "If the target lost HP, the user takes recoil damage equal to 1/4 the HP lost by the target, rounded down, but not less than 1 HP. If this move breaks the target's substitute, the user does not take any recoil damage.",
+		shortDesc: "Has 1/4 recoil.",
 		pp: 10,
 		priority: 0,
 		flags: {mirror: 1, metronome: 1},
+		recoil: [1, 4],
 		secondary: null,
 		target: "normal",
-		type: "Normal",
+		type: "Grass",
 	},
 	fireblast: {
 		inherit: true,
 		accuracy: 90,
+		basePower: 125,
 		secondary: {
 			chance: 30,
 			status: 'brn',
@@ -432,6 +434,10 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				}
 			}
 		},
+	},
+	firepunch: {
+		inherit: true,
+		basePower: 85,
 	},
 	fissure: {
 		num: 90,
@@ -1192,12 +1198,6 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			this.heal(target.maxhp); // Aesthetic only as the healing happens after you fall asleep in-game
 		},
 	},
-	roar: {
-		inherit: true,
-		forceSwitch: false,
-		onTryHit() {},
-		priority: 0,
-	},
 	rockslide: {
 		inherit: true,
 		basePower: 85,
@@ -1225,6 +1225,10 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		target: "normal",
 		type: "Rock",
 	},
+	roost: {
+		inherit: true,
+		gen: 1,
+	}
 	sandattack: {
 		inherit: true,
 		ignoreImmunity: false,
@@ -1299,20 +1303,26 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	},
 	sludge: {
 		inherit: true,
-		basePower: 80,
+		basePower: 90,
 		secondary: {
-			chance: 30,
+			chance: 40,
 			status: 'psn',
 		},
 	},
 	solarbeam: {
 		num: 76,
-		accuracy: 90,
-		basePower: 110,
+		accuracy: 100,
+		basePower: 100,
+		basePowerCallback(pokemon, target, move) {
+			if (pokemon.lastMove?.id === 'synthesis') {
+				return 150;
+			}
+			return 100;
+		},
 		category: "Special",
 		name: "Solar Beam",
-		desc: "No additional effect.",
-		shortDesc: "No additional effect.",
+		desc: "Has a base power of 150 if synthesis was the last move used by this pokemon.",
+		shortDesc: "Increased power after using synthesis.",
 		pp: 10,
 		priority: 0,
 		flags: {metronome: 1},
@@ -1585,6 +1595,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	thunder: {
 		inherit: true,
 		accuracy: 85,
+		pp: 5,
 		secondary: {
 			chance: 30,
 			status: 'par',
@@ -1664,12 +1675,50 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	// 	target: "self",
 	// 	type: "Water",
 	// },
-	withdraw: {
+	// withdraw: {
+	// 	inherit: 'rest',
+	// 	num: -1,
+	// 	name: "withdraw",
+	// 	pp: 20,
+	// 	volatileStatus: 'withdraw',
+	// 	onTry() {},
+	// 	onHit(target, source, move) {
+	// 		if (target.hp === target.maxhp) return false;
+	// 		// Fail when health is 255 or 511 less than max, unless it is divisible by 256
+	// 		if (
+	// 			target.hp === target.maxhp ||
+	// 			((target.hp === (target.maxhp - 255) || target.hp === (target.maxhp - 511)) && target.hp % 256 !== 0)
+	// 		) {
+	// 			this.hint(
+	// 				"In Gen 1, recovery moves fail if (user's maximum HP - user's current HP + 1) is divisible by 256, " +
+	// 				"unless the current hp is also divisible by 256."
+	// 			);
+	// 			return false;
+	// 		}
+	// 		if (!target.setStatus('slp', source, move)) return false;
+	// 		target.statusState.time = 2;
+	// 		target.statusState.startTime = 2;
+	// 		this.heal(target.maxhp); // Aesthetic only as the healing happens after you fall asleep in-game
+	// 	},
+	// 	condition: {
+	// 		duration: 2,
+	// 		onStart(pokemon) {
+	// 			this.add('-start', pokemon, 'Withdraw');
+	// 		},
+	// 	},
+	// 	secondary: {
+	// 		chance: 100,
+	// 		boosts: {
+	// 			def: -1,
+	// 		},
+	// 	},
+	// 	type: "Water",
+	// },
+	regenerate: {
 		inherit: 'rest',
 		num: -1,
-		name: "withdraw",
-		pp: 20,
-		volatileStatus: 'withdraw',
+		name: "Regenerate",
+		pp: 5,
 		onTry() {},
 		onHit(target, source, move) {
 			if (target.hp === target.maxhp) return false;
@@ -1685,21 +1734,9 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				return false;
 			}
 			if (!target.setStatus('slp', source, move)) return false;
-			target.statusState.time = 2;
-			target.statusState.startTime = 2;
+			target.statusState.time = 1;
+			target.statusState.startTime = 1;
 			this.heal(target.maxhp); // Aesthetic only as the healing happens after you fall asleep in-game
-		},
-		condition: {
-			duration: 2,
-			onStart(pokemon) {
-				this.add('-start', pokemon, 'Withdraw');
-			},
-		},
-		secondary: {
-			chance: 100,
-			boosts: {
-				def: -1,
-			},
 		},
 		type: "Water",
 	},

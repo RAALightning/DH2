@@ -97,6 +97,10 @@ export const Statuses: {[k: string]: ModdedPureEffectData} = {
 				target.cureStatus();
 			}
 		},
+		onDeductPP: function (target, source) {
+			if (target.side === source.side) return 1;
+			return;
+		},
 	},
 	psn: {
 		name: 'psn',

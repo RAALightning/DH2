@@ -92,6 +92,11 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 				target.cureStatus();
 			}
 		},
+		// TODO: PP removal
+		onDeductPP: function (target, source) {
+			if (target.side === source.side) return 1;
+			return;
+		},
 	},
 	psn: {
 		name: 'psn',

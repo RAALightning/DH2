@@ -33,6 +33,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData('Learnsets', 'alakazam').learnset.futuresight = ["1L1"];
 		this.modData('Learnsets', 'alakazam').learnset.icepunch = ["1L1"];
 		this.modData('Learnsets', 'alakazam').learnset.thunderpunch = ["1L1"];
+		this.modData('Learnsets', 'alakazam').learnset.firepunch = ["1L1"];
 		// Ninetales
 		this.modData("Learnsets", "ninetales").learnset.hypnosis = ["1L1"];
 		this.modData("Learnsets", "ninetales").learnset.willowisp = ["1L1"];
@@ -47,10 +48,13 @@ export const Scripts: ModdedBattleScriptsData = {
 		// Moltres
 		this.modData('Learnsets', 'moltres').learnset.flamethrower = ["1L1"];
 		this.modData('Learnsets', 'moltres').learnset.softboiled = ["1L1"];
+		this.modData('Learnsets', 'moltres').learnset.roost = ["1L1"];
 		// Articuno
 		this.modData('Learnsets', 'articuno').learnset.softboiled = ["1L1"];
+		this.modData('Learnsets', 'articuno').learnset.roost = ["1L1"];
 		// Zapdos
 		this.modData('Learnsets', 'zapdos').learnset.softboiled = ["1L1"];
+		this.modData('Learnsets', 'zapdos').learnset.roost = ["1L1"];
 		// Jolteon
 		this.modData('Learnsets', 'jolteon').learnset.growth = ["1L1"];
 		// Raichu
