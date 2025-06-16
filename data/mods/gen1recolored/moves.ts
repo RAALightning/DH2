@@ -1228,7 +1228,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	roost: {
 		inherit: true,
 		gen: 1,
-	}
+	},
 	sandattack: {
 		inherit: true,
 		ignoreImmunity: false,
