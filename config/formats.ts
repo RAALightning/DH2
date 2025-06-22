@@ -4070,11 +4070,11 @@ export const Formats: FormatList = [
 		},
 	},
 	{
-		name: "[Gen 1] RBY Recolored",
+		name: "[Gen 2] RBY Recolored",
 		threads: [
       	`&bullet; <a href="https://docs.google.com/document/d/1KqmnxRzM_v8FOWBM98axtIwA-LWeFEs1CUu2NFIdXwY/edit?usp=sharing">Document</a>`,
 		],
-		mod: 'gen1recolored',
+		mod: 'gen2rbyrecolored',
 		ruleset: ['Standard', 'Data Mod'],
 		banlist: ['Uber'],
 	},
